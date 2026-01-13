@@ -47,8 +47,7 @@ docker compose up -d
 
 ### Access Endpoints
 
-* **Elasticsearch:** http://localhost:9200
-* **Kibana:** http://localhost:5601
+* **Elasticsearch:** http://localhost:5601/login?next=%2F
 
 ## Step 2 — Authentication Configuration
 
@@ -69,3 +68,6 @@ Kibana authenticates against Elasticsearch using secured credentials.
 * **Password:** elastic
 
 Successful authentication grants access to the Kibana interface.
+
+
+## Step 2 — Adding 
