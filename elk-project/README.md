@@ -1,3 +1,16 @@
+# Deploy Elasticsearch, Kibana &amp; Logstash (ELK Stack) with Docker Compose
+
+![alt text](https://raw.githubusercontent.com/kayvansol/elasticsearch/main/img/0.png?raw=true)
+
+1) Pull the all related docker **images** :
+```bash
+docker pull docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+docker pull docker.elastic.co/kibana/kibana:8.13.4
+docker pull docker.elastic.co/logstash/logstash:8.13.4
+```
+
+2) Write the **Docker Compose** file :
+```yaml
 version: '3.7'
 
 services:
@@ -16,6 +29,7 @@ services:
   # due to the non-default profile it belongs to. To run it, either provide the
   # '--profile=setup' CLI flag to Compose commands, or "up" the service by name
   # such as 'docker compose up setup'.
+
   setup:
     profiles:
       - setup
@@ -112,3 +126,17 @@ networks:
 
 volumes:
   elasticsearch:
+
+```
+
+3) Start your deployment without 'Setup' service (**manual** deployment) :
+```bash
+docker compose up
+```
+4) elastic  container you need to excute to get the token
+```bash
+sh-5.0$ bin/elasticsearch-create-enrollment-token --scope kibana
+```
+after pasting it in the login of the kibana. you will prompted to enter another verification code and this you will find it in the kibana container logs
+
+5) Add elasticsearch DNS A record within etc/hosts :
