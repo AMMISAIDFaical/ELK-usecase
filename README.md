@@ -1,7 +1,5 @@
 #  Elasticsearch, Kibana; Logstash (ELK Stack) with Docker Compose
 
-### the project repo ! ==> https://github.com/AMMISAIDFaical/ELK-usecase/tree/main/elk-project
-
 1) Pull the all related docker **images** :
 ```bash
 docker pull docker.elastic.co/elasticsearch/elasticsearch:8.13.4
