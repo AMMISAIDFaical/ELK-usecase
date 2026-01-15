@@ -1,5 +1,5 @@
 #  Elasticsearch, Kibana; Logstash (ELK Stack) with Docker Compose
-
+## Q1 setup of ELK stack
 1) Pull the all related docker **images** :
 ```bash
 docker pull docker.elastic.co/elasticsearch/elasticsearch:8.13.4
@@ -140,3 +140,29 @@ after pasting it in the login of the kibana. you will prompted to enter another 
 
 7) to check if logstesh is working we need to fetch for the localhost:9600
 ![alt text](image-1.png)
+
+if you got this 
+![alt text](image-2.png)
+go to your docker desktop and on the elasticsearch container run this
+command : sh-5.0$ /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana
+![alt text](image-3.png)
+and you will get this 
+![alt text](image-4.png)
+if you prompted to get confirmation code you will find it in kibana container output as its shown in the figure below
+![alt text](image-5.png)
+
+## Q2 
+sentiment-api folder holds app.py and inside it a fast api client that uses sentiment vader from nltk [check the doc](https://www.nltk.org/_modules/nltk/sentiment/vader.html)
+to test:
+on bash cd sentiment-api and excute : uvicorn app:app --host 0.0.0.0 --port 8000
+to test it now excute the following:
+curl -s http://localhost:8000/health
+curl -s -X POST http://localhost:8000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"text":"This is amazing!"}'
+
+you will get as result a json looks like this :
+{"ok":true}{"label":"positive","compound":0.6239,"scores":{"neg":0.0,"neu":0.328,"pos":0.672,"compound":0.6239}}
+
+
+### Make Logstash able to reach the external API
