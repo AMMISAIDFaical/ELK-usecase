@@ -136,20 +136,20 @@ sh-5.0$ bin/elasticsearch-create-enrollment-token --scope kibana
 after pasting it in the login of the kibana. you will prompted to enter another verification code and this you will find it in the kibana container logs
 
 6) example of we can get passowrds and login informations from elastic container :
-![alt text](image.png)
+![alt text](images/image.png)
 
 7) to check if logstesh is working we need to fetch for the localhost:9600
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 if you got this 
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 go to your docker desktop and on the elasticsearch container run this
 command : sh-5.0$ /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana
-![alt text](image-3.png)
+![alt text](images/image-3.png)
 and you will get this 
-![alt text](image-4.png)
+![alt text](images/image-4.png)
 if you prompted to get confirmation code you will find it in kibana container output as its shown in the figure below
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 
 ## Q2 
 sentiment-api folder holds app.py and inside it a fast api client that uses sentiment vader from nltk [check the doc](https://www.nltk.org/_modules/nltk/sentiment/vader.html)
@@ -187,7 +187,7 @@ You should see a document containing a `sentiment` object with `label` and `comp
 - Open `http://localhost:5601`
 - Create a data view for `testindex`
 - Discover -> verify fields `sentiment.label`, `sentiment.compound`, and `message`
-![alt text](image-6.png)
+![alt text](images/image-6.png)
 ## Q3
 Implémentez en utilisant python3 un connecteur Facebook et/ou Instagram permettant de colleter des postes (image, texte et commentaires liés aux images) par rapport à un sujet défini, exemple « le décès du président Jacques Chirac ».
 
