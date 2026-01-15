@@ -164,5 +164,31 @@ curl -s -X POST http://localhost:8000/predict \
 you will get as result a json looks like this :
 {"ok":true}{"label":"positive","compound":0.6239,"scores":{"neg":0.0,"neu":0.328,"pos":0.672,"compound":0.6239}}
 
+### Q2 - verify ELK integration (Logstash -> sentiment-api -> Elasticsearch)
+1) Start the stack:
+```bash
+docker compose -f elk-project/Docker-compose.yml up -d
+```
 
-### Make Logstash able to reach the external API
+2) Send a test message through Logstash TCP input (port 50000):
+```bash
+printf 'This is amazing!\n' | nc -w 1 localhost 50000
+```
+
+3) Check Elasticsearch for the sentiment field (index: `testindex`):
+```bash
+export ELASTIC_PASSWORD='your_elastic_password'
+curl -s -u elastic:${ELASTIC_PASSWORD} "http://localhost:9200/testindex/_search?q=message:amazing&pretty"
+```
+
+You should see a document containing a `sentiment` object with `label` and `compound` fields.
+
+4) Kibana UI check:
+- Open `http://localhost:5601`
+- Create a data view for `testindex`
+- Discover -> verify fields `sentiment.label`, `sentiment.compound`, and `message`
+![alt text](image-6.png)
+## Q3
+Implémentez en utilisant python3 un connecteur Facebook et/ou Instagram permettant de colleter des postes (image, texte et commentaires liés aux images) par rapport à un sujet défini, exemple « le décès du président Jacques Chirac ».
+
+Il est recommandé de stocker les textes et les images dans une base MongoDB. Le but de cette question est d’évaluer la qualité de votre code source
