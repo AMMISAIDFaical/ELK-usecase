@@ -1,0 +1,45 @@
+---
+## Default Logstash configuration from Logstash base image.
+## https://github.com/elastic/logstash/blob/main/docker/data/logstash/config/logstash-full.yml
+#
+http.host: "0.0.0.0"
+xpack.monitoring.elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+
+# bin/elasticsearch-reset-password -u logstash_system --auto
+xpack.monitoring.elasticsearch.username: "logstash_system"
+xpack.monitoring.elasticsearch.password: ${LOGSTASH_SYSTEM_PASSWORD}
+
+node.name: logstash
+
+
+------config
+input {
+	beats {
+		port => 5044
+	}
+
+	tcp {
+		port => 50000
+	}
+}
+
+## Add your filters / logstash plugins configuration here
+
+output {
+	elasticsearch {
+		hosts => "elasticsearch:9200"
+		user => "logstash_internal"
+		password => "${LOGSTASH_INTERNAL_PASSWORD}"
+	}
+}
+
+-------dockerfile
+ARG ELASTIC_VERSION
+
+# https://www.docker.elastic.co/
+FROM docker.elastic.co/logstash/logstash:${ELASTIC_VERSION}
+
+# Add your logstash plugins setup here
+# Example: RUN logstash-plugin install logstash-filter-json we need to give logstash ability to use the sentiment server
+RUN bin/logstash-plugin install logstash-filter-http
+

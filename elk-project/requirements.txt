@@ -1,0 +1,8 @@
+elasticsearch
+eland
+torch
+pandas
+eland[pytorch]
+fastapi
+uvicorn[standard]
+nltk
