@@ -129,6 +129,10 @@ volumes:
 ```bash
 docker compose up
 ```
+then you must do this for only one time (mac users):
+in  "/etc/hosts" Edit it with:
+  - sudo nano /etc/hosts
+  - Add this line: 127.0.0.1 elasticsearch.
 4) elastic  container you need to excute to get the token
 ```bash
 sh-5.0$ bin/elasticsearch-create-enrollment-token --scope kibana
@@ -136,7 +140,7 @@ sh-5.0$ bin/elasticsearch-create-enrollment-token --scope kibana
 after pasting it in the login of the kibana. you will prompted to enter another verification code and this you will find it in the kibana container logs
 
 6) example of we can get passowrds and login informations from elastic container :
-![alt text](images/image.png)
+![alt text](images/image-12.png)
 
 7) to check if logstesh is working we need to fetch for the localhost:9600
 ![alt text](images/image-1.png)
@@ -151,6 +155,13 @@ and you will get this
 if you prompted to get confirmation code you will find it in kibana container output as its shown in the figure below
 ![alt text](images/image-5.png)
 
+7) Login to the GUI (this for kibana but same exact job should be done with logstash container), following are the steps and illustrations:
+  - On the elasticsearch node, write the below command : bin/elasticsearch-reset-password -u kibana_system --auto
+  - And copy the New Value result to the kibana node and kibana.yml :
+    - elasticsearch.username: "kibana_system"
+    - elasticsearch.password: "q7pgSbw_JYm9ehk-=kc+"
+  -  go to the kibana portal : Get the elastic node healthy info from kibana : "GET /_cluster/health?pretty"
+![alt text](images/logins.png)
 ## Q2 
 sentiment-api folder holds app.py and inside it a fast api client that uses sentiment vader from nltk [check the doc](https://www.nltk.org/_modules/nltk/sentiment/vader.html)
 to test:
